@@ -33,7 +33,7 @@ class App extends Component {
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
-          {loading && <a
+          {!loading && <a
             className="App-link"
             href="https://reactjs.org"
             target="_blank"
