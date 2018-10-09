@@ -3,7 +3,29 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  state = {
+    loading: true,
+    drizzleState: null
+  };
+
+  componentDidMount() {
+    const { drizzle } = this.props;
+    this.unsubscribe = drizzle.store.subscribe(() => {
+      const drizzleState = drizzle.store.getState();
+
+      if (drizzleState.drizzleStatus.initialized) {
+        this.setState({ loading: false, drizzleState });
+      }
+    });
+  }
+
+  componentWillUpdate() {
+    this.unsubscribe();
+  }
+
   render() {
+    const { loading } = this.state;
+
     return (
       <div className="App">
         <header className="App-header">
@@ -11,14 +33,14 @@ class App extends Component {
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
-          <a
+          {loading && <a
             className="App-link"
             href="https://reactjs.org"
             target="_blank"
             rel="noopener noreferrer"
           >
             Learn React
-          </a>
+          </a>}
         </header>
       </div>
     );
