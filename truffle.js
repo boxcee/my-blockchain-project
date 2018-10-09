@@ -31,6 +31,11 @@ module.exports = {
         return new Web3.providers.HttpProvider(process.env.INFURA_URL);
       },
       network_id: '*'
+    },
+    development: {
+      host: '127.0.0.1',
+      port: 8545,
+      network_id: '*'
     }
   }
 };
