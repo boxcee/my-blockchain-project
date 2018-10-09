@@ -12,14 +12,25 @@
  *   },
  */
 
+require('dotenv').config();
+const Web3 = require('web3');
 const version = require('./package.json').version;
 
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
   // to customize your Truffle configuration!
-  contracts_build_directory: "./output",
+  contracts_build_directory: './output',
   authors: [
-    "Moritz Schmitz von Hülst <m.schmitzvonhuelst@gmail.com>"
+    'Moritz Schmitz von Hülst <m.schmitzvonhuelst@gmail.com>'
   ],
-  version
+  version,
+  networks: {
+    rinkeby: {
+      from: process.env.PRIVATE_ADDRESS,
+      provider: function() {
+        return new Web3.providers.HttpProvider(process.env.INFURA_URL);
+      },
+      network_id: '*'
+    }
+  }
 };
