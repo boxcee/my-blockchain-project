@@ -13,13 +13,14 @@
  */
 
 require('dotenv').config();
+const path = require('path');
 const Web3 = require('web3');
 const version = require('./package.json').version;
 
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
   // to customize your Truffle configuration!
-  contracts_build_directory: './output',
+  contracts_build_directory: path.join(__dirname, 'output'),
   authors: [
     'Moritz Schmitz von Hülst <m.schmitzvonhuelst@gmail.com>'
   ],
