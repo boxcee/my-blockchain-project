@@ -8,6 +8,7 @@
 
 ### Environment variables used
 `PRIVATE_ADDRESS` Default address of wallet used for deployment and interaction with contracts
+
 `INFURA_URL`      Infura API URL to access Ethereum blockchain
 
 ### Command line tools used
