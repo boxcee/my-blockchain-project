@@ -12,32 +12,36 @@ class Name extends PureComponent {
 
   componentDidMount() {
     const { ChallengeToken } = this.contracts;
-
-    // let drizzle know we want to watch the `myString` method
-    const dataKey = ChallengeToken.methods['name'].cacheCall();
-
-    // save the `dataKey` to local component state for later reference
+    const dataKey = ChallengeToken.methods.name.cacheCall();
     this.setState({ dataKey });
   }
 
   render() {
-    // get the contract state from drizzleState
+    const { dataKey } = this.state;
     const { ChallengeToken } = this.props;
 
-    // using the saved `dataKey`, get the variable we're interested in
-    const name = ChallengeToken.name[this.state.dataKey];
+    const name = ChallengeToken.name[dataKey];
 
-    // if it exists, then we display its value
-    return <h1>Welcome to {name && name.value}</h1>;
+    return (
+      <h1>
+        Welcome to
+        {' '}
+        {name && name.value}
+      </h1>
+    );
   }
 }
 
+Name.propTypes = {
+  ChallengeToken: PropTypes.object.isRequired,
+};
+
 Name.contextTypes = {
-  drizzle: PropTypes.object
+  drizzle: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
-  ChallengeToken: state.contracts.ChallengeToken
+  ChallengeToken: state.contracts.ChallengeToken,
 });
 
 export default drizzleConnect(Name, mapStateToProps);

@@ -11,7 +11,7 @@ class Administration extends PureComponent {
     this.state = {
       stackId: null,
       value: '',
-      dataKey: null
+      dataKey: null,
     };
   }
 
@@ -19,7 +19,7 @@ class Administration extends PureComponent {
     const { Whitelist } = this.contracts;
 
     // let drizzle know we want to watch the `myString` method
-    const dataKey = Whitelist.methods['owner'].cacheCall();
+    const dataKey = Whitelist.methods.owner.cacheCall();
 
     // save the `dataKey` to local component state for later reference
     this.setState({ dataKey });
@@ -28,7 +28,7 @@ class Administration extends PureComponent {
   addToWhitelist = (account) => {
     if (utils.isAddress(account)) {
       const { Whitelist } = this.contracts;
-      const stackId = Whitelist.methods['addToWhitelist'].cacheSend(account, { from: this.props.account });
+      const stackId = Whitelist.methods.addToWhitelist.cacheSend(account, { from: this.props.account });
       this.setState({ stackId });
     } else {
       this.setState({ error: `${account} it not a valid address!` });
@@ -60,7 +60,7 @@ class Administration extends PureComponent {
 }
 
 Administration.contextTypes = {
-  drizzle: PropTypes.object
+  drizzle: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
@@ -68,7 +68,7 @@ const mapStateToProps = state => ({
   Whitelist: state.contracts.Whitelist,
   transactions: state.transactions,
   transactionStack: state.transactionStack,
-  account: state.accounts[0]
+  account: state.accounts[0],
 });
 
 export default drizzleConnect(Administration, mapStateToProps);

@@ -13,7 +13,7 @@ class BalanceOf extends PureComponent {
 
   queryBalanceOf = (account) => {
     const { ChallengeToken } = this.contracts;
-    const dataKey = ChallengeToken.methods['balanceOf'].cacheCall(account);
+    const dataKey = ChallengeToken.methods.balanceOf.cacheCall(account);
     this.setState({ dataKey });
   };
 
@@ -31,10 +31,10 @@ class BalanceOf extends PureComponent {
   };
 
   render() {
-    const { value, error } = this.state;
+    const { value, error, dataKey } = this.state;
     const { ChallengeToken } = this.props;
 
-    const balanceOf = ChallengeToken.balanceOf[this.state.dataKey];
+    const balanceOf = ChallengeToken.balanceOf[dataKey];
 
     return (
       <React.Fragment>
@@ -55,21 +55,26 @@ class BalanceOf extends PureComponent {
             Show balance
           </Button>
         </div>
-        {balanceOf && (<div style={{ marginTop: 8 }}>
-          {`The balance of address ${value} is ${balanceOf.value}`}
-        </div>)}
+        {balanceOf && (
+          <div style={{ marginTop: 8 }}>
+            {`The balance of address ${value} is ${balanceOf.value}`}
+          </div>
+        )}
       </React.Fragment>
     );
   }
 }
 
+BalanceOf.propTypes = {
+  ChallengeToken: PropTypes.object.isRequired,
+};
+
 BalanceOf.contextTypes = {
-  drizzle: PropTypes.object
+  drizzle: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
   ChallengeToken: state.contracts.ChallengeToken,
-  account: state.accounts[0]
 });
 
 export default drizzleConnect(BalanceOf, mapStateToProps);

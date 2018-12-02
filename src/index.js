@@ -4,7 +4,7 @@ import { DrizzleProvider } from 'drizzle-react';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import Main from './components/Main';
-import { options } from './options';
+import options from './options';
 
 const Root = () => (
   <DrizzleProvider options={options}>
