@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { drizzleConnect } from 'drizzle-react';
 import PropTypes from 'prop-types';
-import { Button, Input } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import { utils } from 'web3';
 
 class Administration extends PureComponent {
@@ -11,17 +11,13 @@ class Administration extends PureComponent {
     this.state = {
       stackId: null,
       value: '',
-      dataKey: null,
+      dataKey: null
     };
   }
 
   componentDidMount() {
     const { Whitelist } = this.contracts;
-
-    // let drizzle know we want to watch the `myString` method
     const dataKey = Whitelist.methods.owner.cacheCall();
-
-    // save the `dataKey` to local component state for later reference
     this.setState({ dataKey });
   }
 
@@ -47,20 +43,30 @@ class Administration extends PureComponent {
   };
 
   render() {
-    const { Whitelist } = this.props;
+    const { dataKey } = this.state;
+    const { Whitelist, account } = this.props;
+
+    if (!Whitelist.owner[dataKey] || Whitelist.owner[dataKey].value !== account) {
+      return null;
+    }
 
     return (
-      <div style={{ marginTop: 4 }}>
+      <div style={{ marginTop: 8, marginBottom: 8 }}>
         <p>{this.getTxStatus()}</p>
-        <Input onChange={this.handleChange} value={this.state.value} />
-        <Button onClick={this.addToWhitelist}>Add to whitelist</Button>
+        <TextField
+          style={{ marginRight: 8, width: 250 }}
+          onChange={this.handleChange}
+          value={this.state.value}
+          label="Enter an address to whitelist"
+        />
+        <Button variant="contained" color="primary" onClick={this.addToWhitelist}>Add to whitelist</Button>
       </div>
     );
   }
 }
 
 Administration.contextTypes = {
-  drizzle: PropTypes.object,
+  drizzle: PropTypes.object
 };
 
 const mapStateToProps = state => ({
@@ -68,7 +74,7 @@ const mapStateToProps = state => ({
   Whitelist: state.contracts.Whitelist,
   transactions: state.transactions,
   transactionStack: state.transactionStack,
-  account: state.accounts[0],
+  account: state.accounts[0]
 });
 
 export default drizzleConnect(Administration, mapStateToProps);

@@ -9,11 +9,11 @@ class Transfer extends PureComponent {
     super(props);
     this.contracts = context.drizzle.contracts;
     this.state = {
-      dataKey: null, value: '', error: null, address: '',
+      dataKey: null, value: '', error: null, address: ''
     };
   }
 
-  getTransferStatus = () => {
+  getTxStatus = () => {
     const { stackId } = this.state;
     const { transactions, transactionStack } = this.props;
     const txHash = transactionStack[stackId];
@@ -49,7 +49,7 @@ class Transfer extends PureComponent {
 
     return (
       <React.Fragment>
-        {this.getTransferStatus()}
+        {this.getTxStatus()}
         <div>
           <TextField
             onChange={this.handleAddressChange}
@@ -79,18 +79,18 @@ class Transfer extends PureComponent {
 }
 
 Transfer.propTypes = {
-  account: PropTypes.string.isRequired,
+  account: PropTypes.string.isRequired
 };
 
 Transfer.contextTypes = {
-  drizzle: PropTypes.object,
+  drizzle: PropTypes.object
 };
 
 const mapStateToProps = state => ({
   ChallengeToken: state.contracts.ChallengeToken,
   transactions: state.transactions,
   transactionStack: state.transactionStack,
-  account: state.accounts[0],
+  account: state.accounts[0]
 });
 
 export default drizzleConnect(Transfer, mapStateToProps);

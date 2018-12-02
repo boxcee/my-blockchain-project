@@ -14,6 +14,20 @@ if the address to send to is whitelisted.
 
 When the user is the owner of the Whitelist contract (mostly the deployer of the contract),
  she may add other addresses as whitelisted.
+ 
+## Development/Local
+1. `npx ganache-cli -m <MNEMONIC>` to start the ganache node. You should use the same mnemonic
+as used in your MetaMask extension.
+2. `truffle migrate` to deploy the smart contracts on your node.
+3. `npm start` to start the React app.
+4. Open `http://localhost:3000` in your browser.
+
+## Testnet
+1. Make sure you have set up your `.env` file correctly.
+2. `truffle migrate --network rinkeby` to deploy smart contracts on the
+ rinkeby network using your credentials.
+3. `npm start` to start the React app.
+4. Open `http://localhost:3000` in your browser.
 
 ### Requirements
 `node >= 8.11.0`
@@ -30,6 +44,7 @@ When the user is the owner of the Whitelist contract (mostly the deployer of the
 `INFURA_URL` Infura API URL to access Ethereum blockchain.
 
 ### Command line tools used
+- [dotenv](https://github.com/motdotla/dotenv) to make easy use of environment variables
 - [create-react-app](https://github.com/facebook/create-react-app) to set up react boilerplate, hot-reloading, linting and babeling
 - [truffle](https://github.com/trufflesuite/truffle) to set up solidity boilerplate, testing and deploying
 - [drizzle](https://github.com/trufflesuite/drizzle) to use a redux-like environment to interact with the smart contracts
