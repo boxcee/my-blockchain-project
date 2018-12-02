@@ -44,7 +44,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "babel-eslint": "^10.0.1",
+    "babel-eslint": "^9.0.0",
     "bignumber.js": "^7.2.1",
     "dotenv": "^6.1.0",
     "eslint": "^5.9.0",
