@@ -9,7 +9,7 @@ class Transfer extends PureComponent {
     super(props);
     this.contracts = context.drizzle.contracts;
     this.state = {
-      dataKey: null, value: '', error: null, address: ''
+      dataKey: null, value: '', error: null, address: '',
     };
   }
 
@@ -79,18 +79,18 @@ class Transfer extends PureComponent {
 }
 
 Transfer.propTypes = {
-  account: PropTypes.string.isRequired
+  account: PropTypes.string.isRequired,
 };
 
 Transfer.contextTypes = {
-  drizzle: PropTypes.object
+  drizzle: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
   ChallengeToken: state.contracts.ChallengeToken,
   transactions: state.transactions,
   transactionStack: state.transactionStack,
-  account: state.accounts[0]
+  account: state.accounts[0],
 });
 
 export default drizzleConnect(Transfer, mapStateToProps);

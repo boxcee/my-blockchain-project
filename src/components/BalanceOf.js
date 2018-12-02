@@ -66,15 +66,15 @@ class BalanceOf extends PureComponent {
 }
 
 BalanceOf.propTypes = {
-  ChallengeToken: PropTypes.object.isRequired
+  ChallengeToken: PropTypes.object.isRequired,
 };
 
 BalanceOf.contextTypes = {
-  drizzle: PropTypes.object
+  drizzle: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
-  ChallengeToken: state.contracts.ChallengeToken
+  ChallengeToken: state.contracts.ChallengeToken,
 });
 
 export default drizzleConnect(BalanceOf, mapStateToProps);

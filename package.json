@@ -35,7 +35,24 @@
   "author": "Moritz Schmitz von Hülst <m.schmitzvonhuelst@gmail.com>",
   "license": "ISC",
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "airbnb",
+    "parser": "babel-eslint",
+    "globals": {
+      "artifacts": true,
+      "contract": true
+    },
+    "rules": {
+      "react/jsx-filename-extension": [
+        1,
+        {
+          "extensions": [
+            ".js",
+            ".jsx"
+          ]
+        }
+      ],
+      "react/forbid-prop-types": false
+    }
   },
   "browserslist": [
     ">0.2%",

@@ -11,7 +11,7 @@ class Administration extends PureComponent {
     this.state = {
       stackId: null,
       value: '',
-      dataKey: null
+      dataKey: null,
     };
   }
 
@@ -66,7 +66,7 @@ class Administration extends PureComponent {
 }
 
 Administration.contextTypes = {
-  drizzle: PropTypes.object
+  drizzle: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
@@ -74,7 +74,7 @@ const mapStateToProps = state => ({
   Whitelist: state.contracts.Whitelist,
   transactions: state.transactions,
   transactionStack: state.transactionStack,
-  account: state.accounts[0]
+  account: state.accounts[0],
 });
 
 export default drizzleConnect(Administration, mapStateToProps);
