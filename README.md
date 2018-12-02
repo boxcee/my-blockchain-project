@@ -25,7 +25,7 @@ as used in your MetaMask extension.
 ## Testnet
 1. Make sure you have set up your `.env` file correctly.
 2. `truffle migrate --network rinkeby` to deploy smart contracts on the
- rinkeby network using your credentials.
+ Rinkeby network using your credentials.
 3. `npm start` to start the React app.
 4. Open `http://localhost:3000` in your browser.
 

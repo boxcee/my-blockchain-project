@@ -48,6 +48,7 @@ contract ChallengeToken {
   }
 
   function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
+    require(whitelist.isWhitelisted(_to) == true);
     uint256 allowance = allowed[_from][msg.sender];
     require(balances[_from] >= _value && allowance >= _value);
     balances[_to] += _value;
