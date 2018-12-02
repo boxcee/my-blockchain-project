@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Drizzle, generateStore } from "drizzle";
+import { Drizzle, generateStore } from 'drizzle';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import MyStringStore from "./contracts/MyStringStore.json";
+import ChallengeToken from './contracts/ChallengeToken.json';
 
-const options = { contracts: [MyStringStore] };
+const options = { contracts: [ChallengeToken] };
 
 const drizzleStore = generateStore(options);
 const drizzle = new Drizzle(options, drizzleStore);

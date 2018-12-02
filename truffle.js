@@ -14,7 +14,7 @@
 
 require('dotenv').config();
 const path = require('path');
-const Web3 = require('web3');
+const HDWalletProvider = require('truffle-hdwallet-provider');
 const version = require('./package.json').version;
 
 module.exports = {
@@ -27,9 +27,8 @@ module.exports = {
   version,
   networks: {
     rinkeby: {
-      from: process.env.PRIVATE_ADDRESS,
       provider: function() {
-        return new Web3.providers.HttpProvider(process.env.INFURA_URL);
+        return new HDWalletProvider(process.env.MNEMONIC, process.env.INFURA_URL);
       },
       network_id: '*'
     },

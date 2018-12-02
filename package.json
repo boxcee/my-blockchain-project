@@ -27,6 +27,7 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-scripts": "2.0.4",
+    "truffle-hdwallet-provider": "0.0.6",
     "web3": "^0.2.0"
   },
   "author": "Moritz Schmitz von Hülst <m.schmitzvonhuelst@gmail.com>",
@@ -41,6 +42,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "bignumber.js": "^7.2.1",
     "dotenv": "^6.1.0",
     "ganache-cli": "^6.1.8",
     "solhint": "^1.3.0"
