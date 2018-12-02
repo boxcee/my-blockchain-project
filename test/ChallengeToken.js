@@ -23,7 +23,7 @@ contract('ChallengeToken', (accounts) => {
     assert.equal(balance.toString(), totalSupply.toString());
   });
 
-  it('should allow to transfer tokens', async () => {
+  it('should allow to transfer tokens when whitelisted', async () => {
     // arrange
     const contract = await ChallengeToken.deployed();
     const whitelist = await WhiteList.deployed();
