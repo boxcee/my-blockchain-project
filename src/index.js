@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Drizzle, generateStore } from 'drizzle';
+import { DrizzleProvider } from 'drizzle-react';
 import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
-import ChallengeToken from './contracts/ChallengeToken.json';
+import Main from './components/Main';
+import { options } from './options';
 
-const options = { contracts: [ChallengeToken] };
+const Root = () => (
+  <DrizzleProvider options={options}>
+    <Main />
+  </DrizzleProvider>
+);
 
-const drizzleStore = generateStore(options);
-const drizzle = new Drizzle(options, drizzleStore);
-
-ReactDOM.render(<App drizzle={drizzle} />, document.getElementById('root'));
+ReactDOM.render(<Root />, document.getElementById('root'));
 serviceWorker.unregister();
