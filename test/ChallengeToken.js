@@ -32,6 +32,19 @@ contract('ChallengeToken', (accounts) => {
     // act
     await contract.transfer.sendTransaction(accounts[1], 500, { from: accounts[0] });
     const balanceOf = await contract.balanceOf.call(accounts[1]);
-    assert.equal('500', balanceOf.toString());
+    assert.equal(balanceOf.toString(), '500');
+  });
+
+  it('should not allow to transfer tokens when not whitelisted', async () => {
+    // arrange
+    const contract = await ChallengeToken.deployed();
+
+    // act
+    try {
+      await contract.transfer.sendTransaction(accounts[6], 500, { from: accounts[0] });
+      assert.fail('should not resolve');
+    } catch(error) {
+      // test success!
+    }
   });
 });
