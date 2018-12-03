@@ -25,7 +25,7 @@ class Administration extends PureComponent {
     const { value } = this.state;
     if (utils.isAddress(value)) {
       const { Whitelist } = this.contracts;
-      const stackId = Whitelist.methods.addToWhitelist.cacheSend(value, { from: this.props.account });
+      const stackId = Whitelist.methods['addToWhitelist'].cacheSend(value, { from: this.props.account });
       this.setState({ stackId });
     } else {
       this.setState({ error: `${value} it not a valid address!` });
