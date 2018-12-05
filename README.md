@@ -1,10 +1,11 @@
 # My Blockchain Project
 
 ## Requirements
-- [Node.js](https://nodejs.org/en/) JavaScript runtime.
+- [Node.js](https://nodejs.org/en/) JavaScript runtime. At least version 8.
 - [MetaMask](https://metamask.io/) browser extension for smart contract interaction.
 
 ## Install
+
 
 
 ##
