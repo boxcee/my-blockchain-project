@@ -23,11 +23,14 @@
   ],
   "dependencies": {
     "@material-ui/core": "^3.6.1",
+    "@material-ui/icons": "^3.0.1",
     "drizzle": "^1.2.3",
     "drizzle-react": "^1.2.0",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.4",
     "truffle-hdwallet-provider": "0.0.6",
     "web3": "^1.0.0-beta.36"

@@ -11,14 +11,16 @@ class Administration extends PureComponent {
     this.state = {
       stackId: null,
       value: '',
-      dataKey: null
+      owner: null,
+      isWhitelisted: null,
+      error: null
     };
   }
 
   componentDidMount() {
     const { Whitelist } = this.contracts;
     const dataKey = Whitelist.methods.owner.cacheCall();
-    this.setState({ dataKey });
+    this.setState({ owner: dataKey });
   }
 
   addToWhitelist = () => {
@@ -33,6 +35,12 @@ class Administration extends PureComponent {
   };
 
   handleChange = (e) => {
+    const { value } = e.target;
+    if (!utils.isAddress(value)) {
+      this.setState({ error: `${value} is not a valid address!` });
+    } else {
+      this.setState({ error: null });
+    }
     this.setState({ value: e.target.value });
   };
 
@@ -44,10 +52,10 @@ class Administration extends PureComponent {
   };
 
   render() {
-    const { dataKey } = this.state;
+    const { owner, error } = this.state;
     const { Whitelist, account } = this.props;
 
-    if (!Whitelist.owner[dataKey] || Whitelist.owner[dataKey].value !== account) {
+    if (!Whitelist.owner[owner] || Whitelist.owner[owner].value !== account) {
       return null;
     }
 
@@ -59,6 +67,8 @@ class Administration extends PureComponent {
           onChange={this.handleChange}
           value={this.state.value}
           label="Enter an address to whitelist"
+          error={!!error}
+          helperText={error}
         />
         <Button variant="contained" color="primary" onClick={this.addToWhitelist}>Add to whitelist</Button>
       </div>

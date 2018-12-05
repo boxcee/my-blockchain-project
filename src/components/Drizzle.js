@@ -1,12 +1,8 @@
 import React, { PureComponent } from 'react';
 import { drizzleConnect } from 'drizzle-react';
 import PropTypes from 'prop-types';
-import Name from './Name';
-import Balance from './BalanceOf';
-import Administration from './Administration';
-import Transfer from './Transfer';
 
-class Main extends PureComponent {
+class Drizzle extends PureComponent {
   render() {
     const { drizzleStatus, web3 } = this.props;
 
@@ -38,25 +34,18 @@ class Main extends PureComponent {
       );
     }
 
-    return (
-      <div>
-        <Name />
-        <Administration />
-        <Balance />
-        <Transfer />
-      </div>
-    );
+    return this.props.children;
   }
 }
 
-Main.propTypes = {
+Drizzle.propTypes = {
   drizzleStatus: PropTypes.object.isRequired,
-  web3: PropTypes.object.isRequired,
+  web3: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   drizzleStatus: state.drizzleStatus,
-  web3: state.web3,
+  web3: state.web3
 });
 
-export default drizzleConnect(Main, mapStateToProps);
+export default drizzleConnect(Drizzle, mapStateToProps);

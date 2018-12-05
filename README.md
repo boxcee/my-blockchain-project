@@ -1,5 +1,14 @@
 # My Blockchain Project
 
+## Requirements
+- [Node.js](https://nodejs.org/en/) JavaScript runtime.
+- [MetaMask](https://metamask.io/) browser extension for smart contract interaction.
+
+## Install
+
+
+##
+
 As I had some difficulties finding a good idea for a smart contract I went with
 implementing my own small whitelisting solution and my own token (ChallengeToken).
 
@@ -29,9 +38,6 @@ as used in your MetaMask extension.
 3. `npm start` to start the React app.
 4. Open `http://localhost:3000` in your browser.
 
-### Requirements
-`node >= 8.11.0`
-
 ### Install
 `npm install`
 
@@ -47,4 +53,7 @@ as used in your MetaMask extension.
 - [dotenv](https://github.com/motdotla/dotenv) to make easy use of environment variables
 - [create-react-app](https://github.com/facebook/create-react-app) to set up react boilerplate, hot-reloading, linting and babeling
 - [truffle](https://github.com/trufflesuite/truffle) to set up solidity boilerplate, testing and deploying
+
+### Mentionable dependencies
+- [MetaMask]() 
 - [drizzle](https://github.com/trufflesuite/drizzle) to use a redux-like environment to interact with the smart contracts

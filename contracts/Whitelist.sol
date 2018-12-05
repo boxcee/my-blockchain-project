@@ -7,6 +7,7 @@ contract Whitelist {
 
   constructor () public {
     owner = msg.sender;
+    whitelisted[msg.sender] = true;
   }
 
   modifier onlyOwner () {

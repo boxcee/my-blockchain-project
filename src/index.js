@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import { DrizzleProvider } from 'drizzle-react';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import Main from './components/Main';
+import Layout from './components/Layout';
 import options from './options';
 
 const Root = () => (
   <DrizzleProvider options={options}>
-    <Main />
+    <Layout />
   </DrizzleProvider>
 );
 
