@@ -1,8 +1,14 @@
 import React, { PureComponent } from 'react';
 import { drizzleConnect } from 'drizzle-react';
 import PropTypes from 'prop-types';
-import { Button, TextField } from '@material-ui/core';
+import {
+  Button, TextField, Typography, withStyles,
+} from '@material-ui/core';
 import { utils } from 'web3';
+
+const styles = {
+  main: { padding: 16 },
+};
 
 class Transfer extends PureComponent {
   constructor(props, context) {
@@ -46,39 +52,40 @@ class Transfer extends PureComponent {
 
   render() {
     const { value, error, address } = this.state;
+    const { classes } = this.props;
 
     return (
-      <React.Fragment>
-        {this.getTxStatus()}
-        <div>
-          <TextField
-            onChange={this.handleAddressChange}
-            value={address}
-            style={{ marginRight: 8 }}
-            label="Recipient address"
-            error={!!error}
-            helperText={error}
-          />
-          <TextField
-            onChange={this.handleValueChange}
-            value={value}
-            style={{ marginRight: 8 }}
-            label="Amount"
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={this.handleTransfer}
-          >
-            Transfer
-          </Button>
-        </div>
-      </React.Fragment>
+      <div className={classes.main}>
+        <Typography variant="headline">Transfer</Typography>
+        <Typography>Use this view to transfer tokens from your address to another.</Typography>
+        <TextField
+          onChange={this.handleAddressChange}
+          value={address}
+          style={{ marginRight: 8 }}
+          label="Recipient address"
+          error={!!error}
+          helperText={error}
+        />
+        <TextField
+          onChange={this.handleValueChange}
+          value={value}
+          style={{ marginRight: 8 }}
+          label="Amount"
+        />
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={this.handleTransfer}
+        >
+          Transfer
+        </Button>
+      </div>
     );
   }
 }
 
 Transfer.propTypes = {
+  classes: PropTypes.object.isRequired,
   account: PropTypes.string.isRequired,
 };
 
@@ -93,4 +100,4 @@ const mapStateToProps = state => ({
   account: state.accounts[0],
 });
 
-export default drizzleConnect(Transfer, mapStateToProps);
+export default withStyles(styles)(drizzleConnect(Transfer, mapStateToProps));

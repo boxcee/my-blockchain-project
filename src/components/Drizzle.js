@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 class Drizzle extends PureComponent {
   render() {
-    const { drizzleStatus, web3 } = this.props;
+    const { drizzleStatus, web3, children } = this.props;
 
     if (web3.status === 'failed') {
       return (
@@ -34,13 +34,17 @@ class Drizzle extends PureComponent {
       );
     }
 
-    return this.props.children;
+    return children;
   }
 }
 
 Drizzle.propTypes = {
   drizzleStatus: PropTypes.object.isRequired,
   web3: PropTypes.object.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
 };
 
 const mapStateToProps = state => ({

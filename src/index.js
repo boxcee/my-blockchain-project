@@ -11,6 +11,6 @@ const Root = () => (
     <Layout />
   </DrizzleProvider>
 );
-
+/* eslint-disable-next-line no-undef */
 ReactDOM.render(<Root />, document.getElementById('root'));
 serviceWorker.unregister();
