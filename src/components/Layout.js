@@ -13,15 +13,27 @@ import Drizzle from './Drizzle';
 
 const styles = {
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   grow: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   menuButton: {
     marginLeft: -12,
-    marginRight: 20,
+    marginRight: 20
   },
+  toolbar: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    width: 976,
+    backgroundColor: 'teal'
+  },
+  main: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    width: 1024,
+    boxShadow: '0px 2px 10px 4px rgba(0, 0, 0, 0.2)'
+  }
 };
 
 class Layout extends PureComponent {
@@ -43,7 +55,7 @@ class Layout extends PureComponent {
       <Router>
         <Drizzle>
           <AppBar position="static">
-            <Toolbar>
+            <Toolbar className={classes.toolbar}>
               <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={this.handleClick}>
                 <MenuIcon />
               </IconButton>
@@ -51,11 +63,13 @@ class Layout extends PureComponent {
               <Name />
             </Toolbar>
           </AppBar>
-          <Switch>
-            <Route path="/administration" component={Administration} />
-            <Route path="/transfer" component={Transfer} />
-            <Route path="/" exact component={Balance} />
-          </Switch>
+          <div className={classes.main}>
+            <Switch>
+              <Route path="/administration" component={Administration} />
+              <Route path="/transfer" component={Transfer} />
+              <Route path="/" exact component={Balance} />
+            </Switch>
+          </div>
         </Drizzle>
       </Router>
     );
@@ -63,7 +77,7 @@ class Layout extends PureComponent {
 }
 
 Layout.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(Layout);

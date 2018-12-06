@@ -25,11 +25,12 @@ class Menu extends PureComponent {
   render() {
     const { owner } = this.state;
     const {
-      anchorEl, onClose, Whitelist, account,
+      anchorEl, onClose,
+      Whitelist, account
     } = this.props;
-    const isAdmin = (Whitelist.owner[owner] && Whitelist.owner[owner].value === account);
 
-    console.log(this.props);
+    const isAdmin = (Whitelist.owner[owner]
+      && Whitelist.owner[owner].value === account);
 
     return (
       <MaterialMenu
@@ -38,9 +39,9 @@ class Menu extends PureComponent {
         onClose={onClose}
       >
         {isAdmin && (
-        <MenuItem onClick={this.handleClick('/administration')}>
-          Administration
-        </MenuItem>
+          <MenuItem onClick={this.handleClick('/administration')}>
+            Administration
+          </MenuItem>
         )}
         <MenuItem onClick={this.handleClick('/transfer')}>
           Transfer
@@ -54,16 +55,16 @@ class Menu extends PureComponent {
 }
 
 Menu.propTypes = {
-  history: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 Menu.contextTypes = {
-  drizzle: PropTypes.object,
+  drizzle: PropTypes.object
 };
 
 const mapStateToProps = state => ({
   Whitelist: state.contracts.Whitelist,
-  account: state.accounts[0],
+  account: state.accounts[0]
 });
 
 export default withRouter(drizzleConnect(Menu, mapStateToProps));
