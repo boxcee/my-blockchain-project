@@ -1,12 +1,49 @@
 # My Blockchain Project
 
 ## Requirements
-- [Node.js](https://nodejs.org/en/) JavaScript runtime. At least version 8.
+- `node -v >= v8.11.0`
 - [MetaMask](https://metamask.io/) browser extension for smart contract interaction.
 
 ## Install
+### Prepare environment
+Add a file `.env` to your project root.
+Inside the file, create two variables:
+```dotenv
+INFURA_URL=https://rinkeby.infura.io/v3/<API_KEY>
+MNEMONIC=<YOUR_MNEMONIC>
+```
+The `INFURA_URL` can be created here [Infura](https://infura.io/).
 
+The `MNEMONIC` is used for for contract deployment.
 
+### Install dependencies
+Run `npm install` to fetch all required node modules.
+
+### Deploy smart contracts
+##### on the Rinkeby testnet
+Run `truffle migrate --network rinkeby` to deploy smart contracts.
+
+##### on a local testnet
+1. Start a local testnet by running `npx ganache-cli --mnemonic <YOUR_MNEMONIC>`.
+2. Deploy your contracts by running `truffle migrate`.
+
+## Start
+### Interact with the React app
+Run `npm start` to start the application. Your browser should automatically open.
+Depending on your selected network, the application might not start.
+Proceed with the next step.
+
+### Interact with the smart contracts
+##### on the Rinkeby testnet
+Open the MetaMask extension and make sure you have selected `Rinkeby Test Network` at the top.
+
+##### on a local testnet
+Open the MetaMask extension and make sure you have selected `Localhost 8545` at the top. 
+
+## Test
+1. Start a local testnet by running `npx ganache-cli`.
+2. Deploy smart contracts to testnet by running `truffle deploy`.
+3. Test smart conctracts by running `truffle test`.
 
 ##
 
@@ -25,36 +62,15 @@ if the address to send to is whitelisted.
 When the user is the owner of the Whitelist contract (mostly the deployer of the contract),
  she may add other addresses as whitelisted.
  
-## Development/Local
-1. `npx ganache-cli -m <MNEMONIC>` to start the ganache node. You should use the same mnemonic
-as used in your MetaMask extension.
-2. `truffle migrate` to deploy the smart contracts on your node.
-3. `npm start` to start the React app.
-4. Open `http://localhost:3000` in your browser.
-
-## Testnet
-1. Make sure you have set up your `.env` file correctly.
-2. `truffle migrate --network rinkeby` to deploy smart contracts on the
- Rinkeby network using your credentials.
-3. `npm start` to start the React app.
-4. Open `http://localhost:3000` in your browser.
-
-### Install
-`npm install`
-
-### Test
-`truffle test` for contract tests.
-
-### Environment variables used
-`MNEMONIC` Mnemonic used for deployment and interaction with contracts.
-
-`INFURA_URL` Infura API URL to access Ethereum blockchain.
+### Smart contract tests
+1. Start a development node by running `npx ganache-cli` in a separate terminal.
+2. Deploy the smart contracts to the development network by running `truffle deploy`.
+3. Run `truffle test` to start the testrunner.
 
 ### Command line tools used
-- [dotenv](https://github.com/motdotla/dotenv) to make easy use of environment variables
 - [create-react-app](https://github.com/facebook/create-react-app) to set up react boilerplate, hot-reloading, linting and babeling
 - [truffle](https://github.com/trufflesuite/truffle) to set up solidity boilerplate, testing and deploying
 
 ### Mentionable dependencies
-- [MetaMask]() 
+- [dotenv](https://github.com/motdotla/dotenv) to make easy use of environment variables
 - [drizzle](https://github.com/trufflesuite/drizzle) to use a redux-like environment to interact with the smart contracts
