@@ -40,12 +40,12 @@ class Drizzle extends PureComponent {
 
 Drizzle.propTypes = {
   drizzleStatus: PropTypes.object.isRequired,
-  web3: PropTypes.object.isRequired
+  web3: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
   drizzleStatus: state.drizzleStatus,
-  web3: state.web3
+  web3: state.web3,
 });
 
 export default drizzleConnect(Drizzle, mapStateToProps);

@@ -1,26 +1,27 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { AppBar, IconButton, Toolbar } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
+import { withStyles } from '@material-ui/core/styles';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Name from './Name';
 import Balance from './BalanceOf';
 import Administration from './Administration';
 import Transfer from './Transfer';
-import { AppBar, Button, IconButton, Menu, MenuItem, Toolbar } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import { withStyles } from '@material-ui/core/styles';
+import Menu from './Menu';
 import Drizzle from './Drizzle';
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 
 const styles = {
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   grow: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
     marginLeft: -12,
-    marginRight: 20
-  }
+    marginRight: 20,
+  },
 };
 
 class Layout extends PureComponent {
@@ -46,27 +47,7 @@ class Layout extends PureComponent {
               <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={this.handleClick}>
                 <MenuIcon />
               </IconButton>
-              <Menu
-                anchorEl={anchorEl}
-                open={!!anchorEl}
-                onClose={this.handleClose}
-              >
-                <MenuItem onClick={this.handleClose}>
-                  <Link to="/administration">
-                    <Button>Administration</Button>
-                  </Link>
-                </MenuItem>
-                <MenuItem onClick={this.handleClose}>
-                  <Link to="/transfer">
-                    <Button>Transfer</Button>
-                  </Link>
-                </MenuItem>
-                <MenuItem onClick={this.handleClose}>
-                  <Link to="/">
-                    <Button>Balance</Button>
-                  </Link>
-                </MenuItem>
-              </Menu>
+              <Menu anchorEl={anchorEl} open={!!anchorEl} onClose={this.handleClose} />
               <Name />
             </Toolbar>
           </AppBar>
@@ -82,7 +63,7 @@ class Layout extends PureComponent {
 }
 
 Layout.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Layout);

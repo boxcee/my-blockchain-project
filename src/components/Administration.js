@@ -1,8 +1,15 @@
 import React, { PureComponent } from 'react';
 import { drizzleConnect } from 'drizzle-react';
+import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, Typography } from '@material-ui/core';
 import { utils } from 'web3';
+
+const styles = {
+  main: {
+    padding: 16,
+  },
+};
 
 class Administration extends PureComponent {
   constructor(props, context) {
@@ -12,8 +19,7 @@ class Administration extends PureComponent {
       stackId: null,
       value: '',
       owner: null,
-      isWhitelisted: null,
-      error: null
+      error: null,
     };
   }
 
@@ -25,9 +31,13 @@ class Administration extends PureComponent {
 
   addToWhitelist = () => {
     const { value } = this.state;
+    const { account } = this.props;
     if (utils.isAddress(value)) {
       const { Whitelist } = this.contracts;
-      const stackId = Whitelist.methods['addToWhitelist'].cacheSend(value, { from: this.props.account });
+      const stackId = Whitelist
+        .methods
+        .addToWhitelist
+        .cacheSend(value, { from: account });
       this.setState({ stackId });
     } else {
       this.setState({ error: `${value} it not a valid address!` });
@@ -45,27 +55,34 @@ class Administration extends PureComponent {
   };
 
   getTxStatus = () => {
+    const { stackId } = this.state;
     const { transactions, transactionStack } = this.props;
-    const txHash = transactionStack[this.state.stackId];
+    const txHash = transactionStack[stackId];
     if (!txHash) return null;
     return `Transaction status: ${transactions[txHash].status}`;
   };
 
   render() {
-    const { owner, error } = this.state;
-    const { Whitelist, account } = this.props;
+    const { owner, error, value } = this.state;
+    const { Whitelist, account, classes } = this.props;
 
     if (!Whitelist.owner[owner] || Whitelist.owner[owner].value !== account) {
-      return null;
+      return (
+        <div className={classes.main}>
+          <Typography variant="headline">You do not have access rights to view this page.</Typography>
+        </div>
+      );
     }
 
     return (
-      <div style={{ marginTop: 8, marginBottom: 8 }}>
+      <div className={classes.main}>
+        <Typography variant="headline">Administration</Typography>
+        <Typography variant="paragraph">Use this view to whitelist addresses.</Typography>
         <p>{this.getTxStatus()}</p>
         <TextField
           style={{ marginRight: 8, width: 250 }}
           onChange={this.handleChange}
-          value={this.state.value}
+          value={value}
           label="Enter an address to whitelist"
           error={!!error}
           helperText={error}
@@ -76,8 +93,16 @@ class Administration extends PureComponent {
   }
 }
 
+Administration.propTypes = {
+  classes: PropTypes.object.isRequired,
+  transactions: PropTypes.object.isRequired,
+  transactionStack: PropTypes.array.isRequired,
+  account: PropTypes.string.isRequired,
+  Whitelist: PropTypes.object.isRequired,
+};
+
 Administration.contextTypes = {
-  drizzle: PropTypes.object
+  drizzle: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
@@ -85,7 +110,7 @@ const mapStateToProps = state => ({
   Whitelist: state.contracts.Whitelist,
   transactions: state.transactions,
   transactionStack: state.transactionStack,
-  account: state.accounts[0]
+  account: state.accounts[0],
 });
 
-export default drizzleConnect(Administration, mapStateToProps);
+export default withStyles(styles)(drizzleConnect(Administration, mapStateToProps));

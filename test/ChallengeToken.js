@@ -43,7 +43,7 @@ contract('ChallengeToken', (accounts) => {
     try {
       await contract.transfer.sendTransaction(accounts[6], 500, { from: accounts[0] });
       assert.fail('should not resolve');
-    } catch(error) {
+    } catch (error) {
       // test success!
     }
   });

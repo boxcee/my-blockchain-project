@@ -6,8 +6,8 @@ import { Typography } from '@material-ui/core';
 
 const styles = {
   grow: {
-    flexGrow: 1
-  }
+    flexGrow: 1,
+  },
 };
 
 class Name extends PureComponent {
@@ -40,15 +40,15 @@ class Name extends PureComponent {
 
 Name.propTypes = {
   ChallengeToken: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 Name.contextTypes = {
-  drizzle: PropTypes.object
+  drizzle: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
-  ChallengeToken: state.contracts.ChallengeToken
+  ChallengeToken: state.contracts.ChallengeToken,
 });
 
 export default withStyles(styles)(drizzleConnect(Name, mapStateToProps));
