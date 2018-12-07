@@ -1,10 +1,33 @@
 import React, { PureComponent } from 'react';
 import { drizzleConnect } from 'drizzle-react';
 import PropTypes from 'prop-types';
+import {
+  AppBar, Toolbar, Typography, withStyles,
+} from '@material-ui/core';
+
+const styles = {
+  toolbar: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    width: 976,
+    backgroundColor: 'teal',
+  },
+  main: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    width: 1024,
+    boxShadow: '0px 2px 10px 4px rgba(0, 0, 0, 0.2)',
+  },
+  warning: {
+    padding: 16,
+  },
+};
 
 class Drizzle extends PureComponent {
   render() {
-    const { drizzleStatus, web3, children } = this.props;
+    const {
+      drizzleStatus, web3, children, classes,
+    } = this.props;
 
     if (web3.status === 'failed') {
       return (
@@ -24,13 +47,20 @@ class Drizzle extends PureComponent {
 
     if (!drizzleStatus.initialized) {
       return (
-        <main>
-          <h1>
-            <span role="img">⚙</span>
-            ️
-          </h1>
-          <p>Loading dapp...</p>
-        </main>
+        <React.Fragment>
+          <AppBar position="static">
+            <Toolbar className={classes.toolbar}>
+              <Typography variant="h6" color="inherit">Welcome</Typography>
+            </Toolbar>
+          </AppBar>
+          <div className={classes.main}>
+            <div className={classes.warning}>
+              <Typography>
+                Please open MetaMask and allow the connection to this app.
+              </Typography>
+            </div>
+          </div>
+        </React.Fragment>
       );
     }
 
@@ -45,6 +75,7 @@ Drizzle.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -52,4 +83,4 @@ const mapStateToProps = state => ({
   web3: state.web3,
 });
 
-export default drizzleConnect(Drizzle, mapStateToProps);
+export default withStyles(styles)(drizzleConnect(Drizzle, mapStateToProps));
