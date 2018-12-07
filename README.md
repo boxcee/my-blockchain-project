@@ -23,6 +23,7 @@ Run `npm install` to fetch all required node modules.
 ### Deploy smart contracts
 ##### on the Rinkeby testnet
 Run `truffle migrate --network rinkeby` to deploy smart contracts.
+Your account must have sufficient ETH available to do this!
 
 ##### on a local testnet
 1. Start a local testnet by running `npx ganache-cli --mnemonic <YOUR_MNEMONIC>`.
