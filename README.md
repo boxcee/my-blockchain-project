@@ -45,6 +45,11 @@ Open the MetaMask extension and make sure you have selected `Localhost 8545` at 
 2. Deploy smart contracts to testnet by running `truffle deploy`.
 3. Test smart conctracts by running `truffle test`.
 
+## Linting
+`npm run eslint` to run the JS linter.
+
+`npm run solhint` to run the smart contract linter.
+
 ## Usage
 The application has one admin user.
 The admin user is the user who has deployed the smart contracts to the testnet.
