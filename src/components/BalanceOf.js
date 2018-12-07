@@ -1,34 +1,29 @@
 import React, { PureComponent } from 'react';
 import { drizzleConnect } from 'drizzle-react';
 import PropTypes from 'prop-types';
-import {
-  Button, TextField, Typography, withStyles,
-} from '@material-ui/core';
+import { Button, TextField, Typography, withStyles } from '@material-ui/core';
 import { utils } from 'web3';
 import Error from './Error';
 
 const styles = theme => ({
   main: {
-    padding: 16,
+    padding: 16
   },
   input: {
-    marginTop: 24,
-    width: 385,
-  },
-  button: {
-    marginTop: 24,
+    width: 385
   },
   balance: {
     display: 'flex',
-    justifyContent: 'space-between',
-    width: 550,
+    marginTop: 16,
+    width: 600,
+    justifyContent: 'space-between'
   },
   error: {
-    backgroundColor: theme.palette.error.dark,
+    backgroundColor: theme.palette.error.dark
   },
   icon: {
-    fontSize: 20,
-  },
+    fontSize: 20
+  }
 });
 
 class BalanceOf extends PureComponent {
@@ -89,7 +84,6 @@ class BalanceOf extends PureComponent {
             variant="contained"
             color="primary"
             onClick={this.handleShowBalance}
-            className={classes.button}
           >
             Show balance
           </Button>
@@ -102,15 +96,15 @@ class BalanceOf extends PureComponent {
 
 BalanceOf.propTypes = {
   ChallengeToken: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 BalanceOf.contextTypes = {
-  drizzle: PropTypes.object,
+  drizzle: PropTypes.object
 };
 
 const mapStateToProps = state => ({
-  ChallengeToken: state.contracts.ChallengeToken,
+  ChallengeToken: state.contracts.ChallengeToken
 });
 
 export default withStyles(styles)(drizzleConnect(BalanceOf, mapStateToProps));
