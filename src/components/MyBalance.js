@@ -31,16 +31,16 @@ class MyBalance extends PureComponent {
 
 MyBalance.propTypes = {
   ChallengeToken: PropTypes.object.isRequired,
-  account: PropTypes.string.isRequired
+  account: PropTypes.string.isRequired,
 };
 
 MyBalance.contextTypes = {
-  drizzle: PropTypes.object
+  drizzle: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
   ChallengeToken: state.contracts.ChallengeToken,
-  account: state.accounts[0]
+  account: state.accounts[0],
 });
 
 export default drizzleConnect(MyBalance, mapStateToProps);

@@ -73,11 +73,6 @@ the current balance of the used account. Should the amount be higher than the av
 the transfer will be disabled.
 
 The 'Administration' view also implements the first check for a valid address.
- 
-### Smart contract tests
-1. Start a development node by running `npx ganache-cli` in a separate terminal.
-2. Deploy the smart contracts to the development network by running `truffle deploy`.
-3. Run `truffle test` to start the testrunner.
 
 ### Command line tools used
 - [create-react-app](https://github.com/facebook/create-react-app) to set up react boilerplate, hot-reloading, linting and babeling

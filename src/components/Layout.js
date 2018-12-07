@@ -14,27 +14,27 @@ import MyBalance from './MyBalance';
 
 const styles = {
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   grow: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
     marginLeft: -12,
-    marginRight: 20
+    marginRight: 20,
   },
   toolbar: {
     marginLeft: 'auto',
     marginRight: 'auto',
     width: 976,
-    backgroundColor: 'teal'
+    backgroundColor: 'teal',
   },
   main: {
     marginLeft: 'auto',
     marginRight: 'auto',
     width: 1024,
-    boxShadow: '0px 2px 10px 4px rgba(0, 0, 0, 0.2)'
-  }
+    boxShadow: '0px 2px 10px 4px rgba(0, 0, 0, 0.2)',
+  },
 };
 
 class Layout extends PureComponent {
@@ -79,7 +79,7 @@ class Layout extends PureComponent {
 }
 
 Layout.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Layout);
