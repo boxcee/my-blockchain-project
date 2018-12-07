@@ -1,32 +1,34 @@
 import React, { PureComponent } from 'react';
 import { drizzleConnect } from 'drizzle-react';
 import PropTypes from 'prop-types';
-import { Button, TextField, Typography, withStyles } from '@material-ui/core';
+import {
+  Button, TextField, Typography, withStyles,
+} from '@material-ui/core';
 import { utils } from 'web3';
 import Error from './Error';
 
 const styles = theme => ({
   main: {
-    padding: 16
+    padding: 16,
   },
   input: {
     marginTop: 24,
-    width: 385
+    width: 385,
   },
   button: {
-    marginTop: 24
+    marginTop: 24,
   },
   balance: {
     display: 'flex',
     justifyContent: 'space-between',
-    width: 550
+    width: 550,
   },
   error: {
-    backgroundColor: theme.palette.error.dark
+    backgroundColor: theme.palette.error.dark,
   },
   icon: {
-    fontSize: 20
-  }
+    fontSize: 20,
+  },
 });
 
 class BalanceOf extends PureComponent {
@@ -71,7 +73,9 @@ class BalanceOf extends PureComponent {
         <Typography>Use this view to check the balance of an address.</Typography>
         {balanceOf && (
           <Typography>
-            {`The balance of address ${value} is `}<strong>{balanceOf.value}</strong>{' CHT'}
+            {`The balance of address ${value} is `}
+            <strong>{balanceOf.value}</strong>
+            {' CHT'}
           </Typography>)}
         <div className={classes.balance}>
           <TextField
@@ -98,15 +102,15 @@ class BalanceOf extends PureComponent {
 
 BalanceOf.propTypes = {
   ChallengeToken: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 BalanceOf.contextTypes = {
-  drizzle: PropTypes.object
+  drizzle: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
-  ChallengeToken: state.contracts.ChallengeToken
+  ChallengeToken: state.contracts.ChallengeToken,
 });
 
 export default withStyles(styles)(drizzleConnect(BalanceOf, mapStateToProps));

@@ -2,14 +2,16 @@ import React, { PureComponent } from 'react';
 import { drizzleConnect } from 'drizzle-react';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import { Button, FormControl, TextField, Typography } from '@material-ui/core';
+import {
+  Button, FormControl, TextField, Typography,
+} from '@material-ui/core';
 import { utils } from 'web3';
 import Error from './Error';
 
 const styles = {
   main: {
-    padding: 16
-  }
+    padding: 16,
+  },
 };
 
 class Administration extends PureComponent {
@@ -20,7 +22,7 @@ class Administration extends PureComponent {
       stackId: null,
       value: '',
       owner: null,
-      error: null
+      error: null,
     };
   }
 
@@ -99,11 +101,11 @@ Administration.propTypes = {
   transactions: PropTypes.object.isRequired,
   transactionStack: PropTypes.array.isRequired,
   account: PropTypes.string.isRequired,
-  Whitelist: PropTypes.object.isRequired
+  Whitelist: PropTypes.object.isRequired,
 };
 
 Administration.contextTypes = {
-  drizzle: PropTypes.object
+  drizzle: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
@@ -111,7 +113,7 @@ const mapStateToProps = state => ({
   Whitelist: state.contracts.Whitelist,
   transactions: state.transactions,
   transactionStack: state.transactionStack,
-  account: state.accounts[0]
+  account: state.accounts[0],
 });
 
 export default withStyles(styles)(drizzleConnect(Administration, mapStateToProps));

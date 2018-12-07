@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react';
 import { drizzleConnect } from 'drizzle-react';
 import PropTypes from 'prop-types';
-import { Button, CircularProgress, TextField, Typography, withStyles } from '@material-ui/core';
+import {
+  Button, CircularProgress, TextField, Typography, withStyles,
+} from '@material-ui/core';
 import { utils } from 'web3';
 import Error from './Error';
 import Success from './Success';
@@ -10,7 +12,7 @@ const styles = {
   main: { padding: 16 },
   description: { marginBottom: 12 },
   input: { display: 'flex' },
-  recipient: { width: 385 }
+  recipient: { width: 385 },
 };
 
 const getValue = (contract, method, key) => {
@@ -29,7 +31,7 @@ class Transfer extends PureComponent {
       value: '',
       error: null,
       address: '',
-      stackId: null
+      stackId: null,
     };
   }
 
@@ -86,7 +88,7 @@ class Transfer extends PureComponent {
     const { value } = e.target;
     this.setState({
       address: value,
-      whitelisted: this.isWhitelisted(value)
+      whitelisted: this.isWhitelisted(value),
     });
   };
 
@@ -96,9 +98,9 @@ class Transfer extends PureComponent {
       this.setState({ error: 'Amount needs to be a number. Only integers are allowed!' });
     } else {
       this.setState({
-        value: value,
+        value,
         balance: this.getBalance(),
-        error: null
+        error: null,
       });
     }
   };
@@ -111,12 +113,14 @@ class Transfer extends PureComponent {
     this.setState({
       stackId: null,
       value: '',
-      address: ''
+      address: '',
     });
   };
 
   render() {
-    const { value, error, address, whitelisted, balance } = this.state;
+    const {
+      value, error, address, whitelisted, balance,
+    } = this.state;
     const { classes, Whitelist, ChallengeToken } = this.props;
     const isWhitelisted = (Whitelist.isWhitelisted[whitelisted]
       && Whitelist.isWhitelisted[whitelisted].value);
@@ -173,11 +177,11 @@ class Transfer extends PureComponent {
 
 Transfer.propTypes = {
   classes: PropTypes.object.isRequired,
-  account: PropTypes.string.isRequired
+  account: PropTypes.string.isRequired,
 };
 
 Transfer.contextTypes = {
-  drizzle: PropTypes.object
+  drizzle: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
@@ -185,7 +189,7 @@ const mapStateToProps = state => ({
   Whitelist: state.contracts.Whitelist,
   transactions: state.transactions,
   transactionStack: state.transactionStack,
-  account: state.accounts[0]
+  account: state.accounts[0],
 });
 
 export default withStyles(styles)(drizzleConnect(Transfer, mapStateToProps));

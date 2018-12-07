@@ -1,15 +1,17 @@
 import React from 'react';
-import { IconButton, Snackbar, SnackbarContent, withStyles } from '@material-ui/core';
+import {
+  IconButton, Snackbar, SnackbarContent, withStyles,
+} from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import PropTypes from 'prop-types';
 
 const styles = theme => ({
   error: {
-    backgroundColor: theme.palette.error.dark
+    backgroundColor: theme.palette.error.dark,
   },
   icon: {
-    fontSize: 20
-  }
+    fontSize: 20,
+  },
 });
 
 const Error = ({ classes, onClose, error }) => (
@@ -29,7 +31,7 @@ const Error = ({ classes, onClose, error }) => (
           onClick={onClose}
         >
           <CloseIcon className={classes.icon} />
-        </IconButton>
+        </IconButton>,
       ]}
     />
   </Snackbar>
@@ -38,11 +40,11 @@ const Error = ({ classes, onClose, error }) => (
 Error.propTypes = {
   classes: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
-  error: PropTypes.string
+  error: PropTypes.string,
 };
 
 Error.defaultProps = {
-  error: null
+  error: null,
 };
 
 export default withStyles(styles)(Error);

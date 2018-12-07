@@ -27,7 +27,7 @@ class Menu extends PureComponent {
     const { owner } = this.state;
     const {
       anchorEl, onClose,
-      Whitelist, account
+      Whitelist, account,
     } = this.props;
 
     const isAdmin = (Whitelist.owner[owner]
@@ -60,20 +60,20 @@ Menu.propTypes = {
   onClose: PropTypes.func.isRequired,
   anchorEl: PropTypes.object,
   Whitelist: PropTypes.object.isRequired,
-  account: PropTypes.string.isRequired
+  account: PropTypes.string.isRequired,
 };
 
 Menu.defaultProps = {
-  anchorEl: null
+  anchorEl: null,
 };
 
 Menu.contextTypes = {
-  drizzle: PropTypes.object
+  drizzle: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
   Whitelist: state.contracts.Whitelist,
-  account: state.accounts[0]
+  account: state.accounts[0],
 });
 
 export default withRouter(drizzleConnect(Menu, mapStateToProps));
