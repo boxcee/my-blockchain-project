@@ -11,7 +11,7 @@ const styles = {
 };
 
 class Name extends PureComponent {
-  state = { dataKey: null };
+  state = { name: null };
 
   constructor(props, context) {
     super(props);
@@ -20,19 +20,19 @@ class Name extends PureComponent {
 
   componentDidMount() {
     const { ChallengeToken } = this.contracts;
-    const dataKey = ChallengeToken.methods.name.cacheCall();
-    this.setState({ dataKey });
+    const name = ChallengeToken.methods.name.cacheCall();
+    this.setState({ name });
   }
 
   render() {
-    const { dataKey } = this.state;
+    const { name } = this.state;
     const { ChallengeToken, classes } = this.props;
 
-    const name = ChallengeToken.name[dataKey];
+    const title = ChallengeToken.name[name];
 
     return (
       <Typography variant="h6" color="inherit" className={classes.grow}>
-        {name ? name.value : 'Welcome'}
+        {title ? title.value : 'Welcome'}
       </Typography>
     );
   }

@@ -45,22 +45,29 @@ Open the MetaMask extension and make sure you have selected `Localhost 8545` at 
 2. Deploy smart contracts to testnet by running `truffle deploy`.
 3. Test smart conctracts by running `truffle test`.
 
-##
+## Usage
+The application has one admin user.
+The admin user is the user who has deployed the smart contracts to the testnet.
 
-As I had some difficulties finding a good idea for a smart contract I went with
-implementing my own small whitelisting solution and my own token (ChallengeToken).
+The admin user can access the 'Administration' view, but other users cannot. This
+is checked by testing the used address against the owner address of the Whitelist smart contract.
 
-This application is made out of two parts, a React app running on Heroku 
-and two Solidity smart contracts (ChallengeToken, Whitelist) running on the Ethereum Rinkeby testnet.
+The selection for the 'Administration' view is omitted from the menu for other user. Should they try
+and open the route manually, they will see a message informing them about their missing rights.
 
-The React app is a small web app to interact with the smart contracts.
+There are two other views implemented. A 'Balance' view and a 'Transfer' view.
 
-When opening the webapp, the user should have the option to display her token balance
-and transfer tokens to another address. However, the smart contracts only allow transfer
-if the address to send to is whitelisted.
+The 'Balance' view allows the user to check the balance for a given address. I implemented a check
+to make sure the address entered is a valid Ethereum address.
 
-When the user is the owner of the Whitelist contract (mostly the deployer of the contract),
- she may add other addresses as whitelisted.
+The 'Transfer' view allows the user to transfer tokens from her address to another address.
+I implemented three checks here. First, the same check as with balance, the address entered must be a valid
+Ethereum address. Second, I check whether the address is whitelisted and the user is informed before she
+tries to transfer the tokens. Third, the entered amount of tokens is checked against
+the current balance of the used account. Should the amount be higher than the available tokens,
+the transfer will be disabled.
+
+The 'Administration' view also implements the first check for a valid address.
  
 ### Smart contract tests
 1. Start a development node by running `npx ganache-cli` in a separate terminal.
@@ -72,5 +79,6 @@ When the user is the owner of the Whitelist contract (mostly the deployer of the
 - [truffle](https://github.com/trufflesuite/truffle) to set up solidity boilerplate, testing and deploying
 
 ### Mentionable dependencies
+- [material-ui](https://material-ui.com/) for some solid material design ready-made components
 - [dotenv](https://github.com/motdotla/dotenv) to make easy use of environment variables
 - [drizzle](https://github.com/trufflesuite/drizzle) to use a redux-like environment to interact with the smart contracts
