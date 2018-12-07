@@ -21,11 +21,13 @@ Run `npm install` to fetch all required node modules.
 
 ### Deploy smart contracts
 ##### on the Rinkeby testnet
-Run `truffle migrate --network rinkeby` to deploy smart contracts.
+Run `truffle migrate --network rinkeby` to deploy smart contracts. The first account generated
+by your mnemonic will be the owner/creator of the smart contracts.
 
 ##### on a local testnet
 1. Start a local testnet by running `npx ganache-cli --mnemonic <YOUR_MNEMONIC>`.
-2. Deploy your contracts by running `truffle migrate`.
+2. Deploy your contracts by running `truffle migrate`. The first account generated
+by your mnemonic will be the owner/creator of the smart contracts.
 
 ## Start
 ### Interact with the React app
