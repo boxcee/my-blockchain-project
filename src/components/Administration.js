@@ -2,15 +2,14 @@ import React, { PureComponent } from 'react';
 import { drizzleConnect } from 'drizzle-react';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import {
-  Button, FormControl, TextField, Typography,
-} from '@material-ui/core';
+import { Button, FormControl, TextField, Typography } from '@material-ui/core';
 import { utils } from 'web3';
+import Error from './Error';
 
 const styles = {
   main: {
-    padding: 16,
-  },
+    padding: 16
+  }
 };
 
 class Administration extends PureComponent {
@@ -21,7 +20,7 @@ class Administration extends PureComponent {
       stackId: null,
       value: '',
       owner: null,
-      error: null,
+      error: null
     };
   }
 
@@ -42,18 +41,16 @@ class Administration extends PureComponent {
         .cacheSend(value, { from: account });
       this.setState({ stackId });
     } else {
-      this.setState({ error: `${value} it not a valid address!` });
+      this.setState({ error: 'Not a valid address! Must be a valid Ethereum address.' });
     }
   };
 
   handleChange = (e) => {
-    const { value } = e.target;
-    if (!utils.isAddress(value)) {
-      this.setState({ error: `${value} is not a valid address!` });
-    } else {
-      this.setState({ error: null });
-    }
     this.setState({ value: e.target.value });
+  };
+
+  handleErrorClose = () => {
+    this.setState({ error: null });
   };
 
   getTxStatus = () => {
@@ -88,10 +85,10 @@ class Administration extends PureComponent {
             value={value}
             label="Enter an address to whitelist"
             error={!!error}
-            helperText={error}
           />
           <Button variant="contained" color="primary" onClick={this.addToWhitelist}>Add to whitelist</Button>
         </FormControl>
+        <Error error={error} onClose={this.handleErrorClose} />
       </div>
     );
   }
@@ -102,11 +99,11 @@ Administration.propTypes = {
   transactions: PropTypes.object.isRequired,
   transactionStack: PropTypes.array.isRequired,
   account: PropTypes.string.isRequired,
-  Whitelist: PropTypes.object.isRequired,
+  Whitelist: PropTypes.object.isRequired
 };
 
 Administration.contextTypes = {
-  drizzle: PropTypes.object,
+  drizzle: PropTypes.object
 };
 
 const mapStateToProps = state => ({
@@ -114,7 +111,7 @@ const mapStateToProps = state => ({
   Whitelist: state.contracts.Whitelist,
   transactions: state.transactions,
   transactionStack: state.transactionStack,
-  account: state.accounts[0],
+  account: state.accounts[0]
 });
 
 export default withStyles(styles)(drizzleConnect(Administration, mapStateToProps));
