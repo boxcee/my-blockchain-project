@@ -15,7 +15,7 @@ contract Whitelist {
     _;
   }
 
-  function addToWhitelist (address _address) onlyOwner public returns (bool success) {
+  function addToWhitelist (address _address) public onlyOwner returns (bool success) {
     whitelisted[_address] = true;
     return whitelisted[_address];
   }

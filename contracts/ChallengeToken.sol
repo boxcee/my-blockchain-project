@@ -3,12 +3,13 @@ pragma solidity 0.4.24;
 
 import "./Whitelist.sol";
 
+
 contract ChallengeToken {
   uint256 public totalSupply = 1000000;
   string public name = "ChallengeToken";
   uint8 public decimals = 8;
   string public symbol = "CHT";
-  Whitelist whitelist;
+  Whitelist private whitelist;
 
   mapping(address => uint256) public balances;
   mapping (address => mapping (address => uint256)) public allowed;
