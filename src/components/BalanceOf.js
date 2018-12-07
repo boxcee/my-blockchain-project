@@ -1,29 +1,35 @@
 import React, { PureComponent } from 'react';
 import { drizzleConnect } from 'drizzle-react';
 import PropTypes from 'prop-types';
-import { Button, TextField, Typography, withStyles } from '@material-ui/core';
+import {
+  Button, TextField, Typography, withStyles,
+} from '@material-ui/core';
 import { utils } from 'web3';
 import Error from './Error';
 
 const styles = theme => ({
   main: {
-    padding: 16
+    padding: 16,
   },
   input: {
-    width: 385
+    width: 385,
   },
   balance: {
     display: 'flex',
     marginTop: 16,
     width: 600,
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   error: {
-    backgroundColor: theme.palette.error.dark
+    backgroundColor: theme.palette.error.dark,
   },
   icon: {
-    fontSize: 20
-  }
+    fontSize: 20,
+  },
+  wrapper: {
+    margin: theme.spacing.unit,
+    position: 'relative',
+  },
 });
 
 class BalanceOf extends PureComponent {
@@ -80,13 +86,15 @@ class BalanceOf extends PureComponent {
             label="Enter an address"
             error={!!error}
           />
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={this.handleShowBalance}
-          >
-            Show balance
-          </Button>
+          <div className={classes.wrapper}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.handleShowBalance}
+            >
+              Show balance
+            </Button>
+          </div>
         </div>
         <Error error={error} onClose={this.handleErrorClose} />
       </div>
@@ -96,15 +104,15 @@ class BalanceOf extends PureComponent {
 
 BalanceOf.propTypes = {
   ChallengeToken: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 BalanceOf.contextTypes = {
-  drizzle: PropTypes.object
+  drizzle: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
-  ChallengeToken: state.contracts.ChallengeToken
+  ChallengeToken: state.contracts.ChallengeToken,
 });
 
 export default withStyles(styles)(drizzleConnect(BalanceOf, mapStateToProps));

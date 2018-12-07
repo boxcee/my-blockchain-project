@@ -2,28 +2,40 @@ import React, { PureComponent } from 'react';
 import { drizzleConnect } from 'drizzle-react';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import { Button, CircularProgress, TextField, Typography } from '@material-ui/core';
+import {
+  Button, CircularProgress, TextField, Typography,
+} from '@material-ui/core';
 import { utils } from 'web3';
+import green from '@material-ui/core/colors/green';
 import Error from './Error';
 import Success from './Success';
 
-const styles = {
+const styles = theme => ({
   main: {
-    padding: 16
-  },
-  spinner: {
-    marginLeft: 16
+    padding: 16,
   },
   administration: {
     display: 'flex',
     marginTop: 16,
     width: 600,
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   input: {
-    width: 385
-  }
-};
+    width: 385,
+  },
+  wrapper: {
+    margin: theme.spacing.unit,
+    position: 'relative',
+  },
+  buttonProgress: {
+    color: green[500],
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginTop: -12,
+    marginLeft: -12,
+  },
+});
 
 class Administration extends PureComponent {
   constructor(props, context) {
@@ -33,7 +45,7 @@ class Administration extends PureComponent {
       stackId: null,
       value: '',
       owner: null,
-      error: null
+      error: null,
     };
   }
 
@@ -71,22 +83,20 @@ class Administration extends PureComponent {
     const { transactions, transactionStack, classes } = this.props;
     const txHash = transactionStack[stackId];
     if (!txHash || transactions[txHash].status === 'success') return null;
-    return <CircularProgress className={classes.spinner} />;
+    return <CircularProgress className={classes.buttonProgress} size={24} />;
   };
 
-  getSuccess = () => {
+  isStatus = (status) => {
     const { stackId } = this.state;
     const { transactions, transactionStack } = this.props;
     const txHash = transactionStack[stackId];
-    return (txHash && transactions[txHash].status === 'success'
-      ? 'Address was successfully added to whitelist!'
-      : null);
+    return txHash && transactions[txHash].status === status;
   };
 
   handleSuccessClose = () => {
     this.setState({
       stackId: null,
-      value: ''
+      value: '',
     });
   };
 
@@ -114,11 +124,23 @@ class Administration extends PureComponent {
             label="Enter an address to whitelist"
             error={!!error}
           />
-          <Button variant="contained" color="primary" onClick={this.addToWhitelist}>Add to whitelist</Button>
-          {this.getTxStatus()}
+          <div className={classes.wrapper}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.addToWhitelist}
+              disabled={this.isStatus('pending')}
+            >
+              Add to whitelist
+            </Button>
+            {this.getTxStatus()}
+          </div>
         </div>
         <Error error={error} onClose={this.handleErrorClose} />
-        <Success success={this.getSuccess()} onClose={this.handleSuccessClose} />
+        <Success
+          success={this.isStatus('success') ? 'Address was successfully added to whitelist!' : null}
+          onClose={this.handleSuccessClose}
+        />
       </div>
     );
   }
@@ -129,11 +151,11 @@ Administration.propTypes = {
   transactions: PropTypes.object.isRequired,
   transactionStack: PropTypes.array.isRequired,
   account: PropTypes.string.isRequired,
-  Whitelist: PropTypes.object.isRequired
+  Whitelist: PropTypes.object.isRequired,
 };
 
 Administration.contextTypes = {
-  drizzle: PropTypes.object
+  drizzle: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
@@ -141,7 +163,7 @@ const mapStateToProps = state => ({
   Whitelist: state.contracts.Whitelist,
   transactions: state.transactions,
   transactionStack: state.transactionStack,
-  account: state.accounts[0]
+  account: state.accounts[0],
 });
 
 export default withStyles(styles)(drizzleConnect(Administration, mapStateToProps));

@@ -1,28 +1,40 @@
 import React, { PureComponent } from 'react';
 import { drizzleConnect } from 'drizzle-react';
 import PropTypes from 'prop-types';
-import { Button, CircularProgress, TextField, Typography, withStyles } from '@material-ui/core';
+import {
+  Button, CircularProgress, TextField, Typography, withStyles,
+} from '@material-ui/core';
 import { utils } from 'web3';
+import green from '@material-ui/core/colors/green';
 import Error from './Error';
 import Success from './Success';
 
-const styles = {
+const styles = theme => ({
   main: {
-    padding: 16
+    padding: 16,
   },
   transfer: {
     display: 'flex',
     marginTop: 16,
-    width: 600,
-    justifyContent: 'space-between'
+    width: 725,
+    justifyContent: 'space-between',
   },
   input: {
-    width: 385
+    width: 385,
   },
-  spinner: {
-    marginLeft: 16
-  }
-};
+  wrapper: {
+    margin: theme.spacing.unit,
+    position: 'relative',
+  },
+  buttonProgress: {
+    color: green[500],
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginTop: -12,
+    marginLeft: -12,
+  },
+});
 
 const getValue = (contract, method, key) => (contract[method][key]
   && contract[method][key].value);
@@ -37,7 +49,7 @@ class Transfer extends PureComponent {
       value: '',
       error: null,
       address: '',
-      stackId: null
+      stackId: null,
     };
   }
 
@@ -46,14 +58,14 @@ class Transfer extends PureComponent {
     const { transactions, transactionStack, classes } = this.props;
     const txHash = transactionStack[stackId];
     if (!txHash || transactions[txHash].status === 'success') return null;
-    return <CircularProgress className={classes.spinner} />;
+    return <CircularProgress className={classes.buttonProgress} size={24} />;
   };
 
-  getSuccess = () => {
+  isStatus = (status) => {
     const { stackId } = this.state;
     const { transactions, transactionStack } = this.props;
     const txHash = transactionStack[stackId];
-    return txHash && transactions[txHash].status === 'success' ? 'Transaction was successful!' : null;
+    return txHash && transactions[txHash].status === status;
   };
 
   handleTransfer = () => {
@@ -92,19 +104,19 @@ class Transfer extends PureComponent {
     const { value } = e.target;
     this.setState({
       address: value,
-      whitelisted: this.isWhitelisted(value)
+      whitelisted: this.isWhitelisted(value),
     });
   };
 
   handleValueChange = (e) => {
     const { value } = e.target;
-    if (Number.isNaN(value)) {
+    if (Number.isNaN(Number(value))) {
       this.setState({ error: 'Amount needs to be a number. Only integers are allowed!' });
     } else {
       this.setState({
         value,
         balance: this.getBalance(),
-        error: null
+        error: null,
       });
     }
   };
@@ -117,13 +129,13 @@ class Transfer extends PureComponent {
     this.setState({
       stackId: null,
       value: '',
-      address: ''
+      address: '',
     });
   };
 
   render() {
     const {
-      value, error, address, whitelisted, balance
+      value, error, address, whitelisted, balance,
     } = this.state;
     const { classes, Whitelist, ChallengeToken } = this.props;
     const isWhitelisted = (Whitelist.isWhitelisted[whitelisted]
@@ -155,25 +167,33 @@ class Transfer extends PureComponent {
             onChange={this.handleValueChange}
             value={value}
             style={{ marginRight: 8 }}
-            label="Amount"
+            label="Amount (CHT)"
             error={!!error}
             helperText={(!hasEnoughTokens
               && !!availableTokens)
               ? 'You don\'t have enough tokens.'
               : null}
           />
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={this.handleTransfer}
-            disabled={!isWhitelisted || !hasEnoughTokens}
-          >
-            Transfer
-          </Button>
-          {this.getTxStatus()}
+          <div className={classes.wrapper}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.handleTransfer}
+              disabled={(!isWhitelisted
+                || !hasEnoughTokens
+                || this.isStatus('pending')
+              )}
+            >
+              Transfer
+            </Button>
+            {this.getTxStatus()}
+          </div>
         </div>
         <Error error={error} onClose={this.handleErrorClose} />
-        <Success success={this.getSuccess()} onClose={this.handleSuccessClose} />
+        <Success
+          success={(this.isStatus('success') ? 'Transaction was successful!' : null)}
+          onClose={this.handleSuccessClose}
+        />
       </div>
     );
   }
@@ -185,11 +205,11 @@ Transfer.propTypes = {
   transactions: PropTypes.object.isRequired,
   transactionStack: PropTypes.array.isRequired,
   ChallengeToken: PropTypes.object.isRequired,
-  Whitelist: PropTypes.object.isRequired
+  Whitelist: PropTypes.object.isRequired,
 };
 
 Transfer.contextTypes = {
-  drizzle: PropTypes.object
+  drizzle: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
@@ -197,7 +217,7 @@ const mapStateToProps = state => ({
   Whitelist: state.contracts.Whitelist,
   transactions: state.transactions,
   transactionStack: state.transactionStack,
-  account: state.accounts[0]
+  account: state.accounts[0],
 });
 
 export default withStyles(styles)(drizzleConnect(Transfer, mapStateToProps));
