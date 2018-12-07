@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react';
 import { drizzleConnect } from 'drizzle-react';
 import PropTypes from 'prop-types';
-import { Button, CircularProgress, TextField, Typography, withStyles } from '@material-ui/core';
+import {
+  Button, CircularProgress, TextField, Typography, withStyles,
+} from '@material-ui/core';
 import { utils } from 'web3';
 import green from '@material-ui/core/colors/green';
 import Error from './Error';
@@ -9,20 +11,20 @@ import Success from './Success';
 
 const styles = theme => ({
   main: {
-    padding: 16
+    padding: 16,
   },
   transfer: {
     display: 'flex',
     marginTop: 16,
     width: 725,
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   input: {
-    width: 385
+    width: 385,
   },
   wrapper: {
     margin: theme.spacing.unit,
-    position: 'relative'
+    position: 'relative',
   },
   buttonProgress: {
     color: green[500],
@@ -30,8 +32,8 @@ const styles = theme => ({
     top: '50%',
     left: '50%',
     marginTop: -12,
-    marginLeft: -12
-  }
+    marginLeft: -12,
+  },
 });
 
 const getValue = (contract, method, key) => (contract[method][key]
@@ -47,7 +49,7 @@ class Transfer extends PureComponent {
       value: '',
       error: null,
       address: '',
-      stackId: null
+      stackId: null,
     };
   }
 
@@ -102,7 +104,7 @@ class Transfer extends PureComponent {
     const { value } = e.target;
     this.setState({
       address: value,
-      whitelisted: this.isWhitelisted(value)
+      whitelisted: this.isWhitelisted(value),
     });
   };
 
@@ -114,7 +116,7 @@ class Transfer extends PureComponent {
       this.setState({
         value,
         balance: this.getBalance(),
-        error: null
+        error: null,
       });
     }
   };
@@ -127,13 +129,13 @@ class Transfer extends PureComponent {
     this.setState({
       stackId: null,
       value: '',
-      address: ''
+      address: '',
     });
   };
 
   render() {
     const {
-      value, error, address, whitelisted, balance
+      value, error, address, whitelisted, balance,
     } = this.state;
     const { classes, Whitelist, ChallengeToken } = this.props;
     const isWhitelisted = (Whitelist.isWhitelisted[whitelisted]
@@ -203,11 +205,11 @@ Transfer.propTypes = {
   transactions: PropTypes.object.isRequired,
   transactionStack: PropTypes.array.isRequired,
   ChallengeToken: PropTypes.object.isRequired,
-  Whitelist: PropTypes.object.isRequired
+  Whitelist: PropTypes.object.isRequired,
 };
 
 Transfer.contextTypes = {
-  drizzle: PropTypes.object
+  drizzle: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
@@ -215,7 +217,7 @@ const mapStateToProps = state => ({
   Whitelist: state.contracts.Whitelist,
   transactions: state.transactions,
   transactionStack: state.transactionStack,
-  account: state.accounts[0]
+  account: state.accounts[0],
 });
 
 export default withStyles(styles)(drizzleConnect(Transfer, mapStateToProps));
