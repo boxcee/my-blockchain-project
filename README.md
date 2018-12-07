@@ -77,6 +77,13 @@ the transfer will be disabled.
 The 'Administration' view also implements the first check for a valid address.
 
 ## Other
+### Heroku
+The app can be deployed on heroku. You need an heroku account and the heroku-cli installed.
+1. `heroku create <YOUR_APP_NAME>` to create the app and add the remote git repo.
+2. `heroku buildpacks:set mars/create-react-app` to set the buildpack.
+3. `git push heroku master` to push to heroku remote.
+4. Wait until finished, then open the link shown in the terminal.
+
 ### Command line tools used
 - [create-react-app](https://github.com/facebook/create-react-app) to set up react boilerplate, hot-reloading, linting and babeling
 - [truffle](https://github.com/trufflesuite/truffle) to set up solidity boilerplate, testing and deploying
@@ -85,3 +92,4 @@ The 'Administration' view also implements the first check for a valid address.
 - [material-ui](https://material-ui.com/) for some solid material design ready-made components
 - [dotenv](https://github.com/motdotla/dotenv) to make easy use of environment variables
 - [drizzle](https://github.com/trufflesuite/drizzle) to use a redux-like environment to interact with the smart contracts
+- [mars/create-react-app](https://github.com/mars/create-react-app-buildpack) for easy deployment on heroku when using `create-react-app`
