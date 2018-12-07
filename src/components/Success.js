@@ -15,7 +15,7 @@ const styles = {
   },
 };
 
-const Error = ({ classes, onClose, success }) => (
+const Success = ({ classes, onClose, success }) => (
   <Snackbar
     open={!!success}
     onClose={onClose}
@@ -39,14 +39,14 @@ const Error = ({ classes, onClose, success }) => (
   </Snackbar>
 );
 
-Error.propTypes = {
+Success.propTypes = {
   classes: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
   success: PropTypes.string,
 };
 
-Error.defaultProps = {
-  error: null,
+Success.defaultProps = {
+  success: null,
 };
 
-export default withStyles(styles)(Error);
+export default withStyles(styles)(Success);

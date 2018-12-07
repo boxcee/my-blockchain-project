@@ -15,11 +15,8 @@ const styles = {
   recipient: { width: 385 },
 };
 
-const getValue = (contract, method, key) => {
-  if (contract[method][key]) {
-    return contract[method][key].value;
-  }
-};
+const getValue = (contract, method, key) => (contract[method][key]
+  && contract[method][key].value);
 
 class Transfer extends PureComponent {
   constructor(props, context) {
@@ -66,13 +63,11 @@ class Transfer extends PureComponent {
   };
 
   isWhitelisted = (address) => {
-    if (utils.isAddress(address)) {
-      const { Whitelist } = this.contracts;
-      return Whitelist
-        .methods
-        .isWhitelisted
-        .cacheCall(address);
-    }
+    const { Whitelist } = this.contracts;
+    return utils.isAddress(address) ? Whitelist
+      .methods
+      .isWhitelisted
+      .cacheCall(address) : null;
   };
 
   getBalance = () => {
@@ -94,7 +89,7 @@ class Transfer extends PureComponent {
 
   handleValueChange = (e) => {
     const { value } = e.target;
-    if (isNaN(value)) {
+    if (Number.isNaN(value)) {
       this.setState({ error: 'Amount needs to be a number. Only integers are allowed!' });
     } else {
       this.setState({
@@ -178,6 +173,10 @@ class Transfer extends PureComponent {
 Transfer.propTypes = {
   classes: PropTypes.object.isRequired,
   account: PropTypes.string.isRequired,
+  transactions: PropTypes.object.isRequired,
+  transactionStack: PropTypes.array.isRequired,
+  ChallengeToken: PropTypes.object.isRequired,
+  Whitelist: PropTypes.object.isRequired,
 };
 
 Transfer.contextTypes = {
